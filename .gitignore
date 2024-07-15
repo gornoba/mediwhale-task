@@ -1,0 +1,34 @@
+# Python 관련
+*.py[cod]
+__pycache__/
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+
+# 환경 파일
+.env
+
+# Docker 관련
+*.log
+docker-compose.override.yml
+Dockerfile.dev
+docker-compose.yml
+docker-compose.dev.yml
+
+# 데이터베이스 데이터
+postgres-data/
+
+# alembic 관련
+alembic/versions/
+
+# PyCharm 관련
+.idea/
+
+# VSCode 관련
+.vscode/
+
+# 기타
+*.swp
+*.swo
