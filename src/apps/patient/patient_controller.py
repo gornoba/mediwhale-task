@@ -21,8 +21,8 @@ async def getAllPatient(
     result = await patient_service.getAllPatient(db, skip, limit)
     return result
 
-@router.get('/:id', summary='환자 정보 조회')
-async def getPgetAllPatient(id: str, db: Session = Depends(get_db), token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
+@router.get('/:id', summary='환자 정보 조회', response_model=file_schema.PatientModelSchema)
+async def getPatient(id: str, db: Session = Depends(get_db), token: HTTPAuthorizationCredentials = Depends(auth_scheme)):
     verify_token(token.credentials)
-    result = await patient_service.getPgetAllPatient(db, id)
+    result = await patient_service.getPatient(db, id)
     return result

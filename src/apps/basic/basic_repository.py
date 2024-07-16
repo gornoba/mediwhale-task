@@ -1,3 +1,4 @@
+from http.client import HTTPException
 from sqlalchemy.future import select
 from src.models.model import UrlModel
 from sqlalchemy.orm import Session
@@ -8,6 +9,10 @@ def model_to_dict(model):
 async def getUrl(db: Session):
   findUrl = await db.execute(select(UrlModel))
   result = findUrl.scalars().first()
+
+  if not result:
+    raise HTTPException(status_code=404, detail="Url not found")
+
   return str(result.url)
 
 async def upsertUrl(db: Session, url: str):

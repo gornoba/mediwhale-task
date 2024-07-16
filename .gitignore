@@ -9,13 +9,8 @@ build/
 
 # 환경 파일
 .env
-
-# Docker 관련
 *.log
-docker-compose.override.yml
-Dockerfile.dev
-docker-compose.yml
-docker-compose.dev.yml
+
 
 # 데이터베이스 데이터
 postgres-data/
