@@ -28,9 +28,9 @@ class PatientModel(AbstractModel):
     birthDate = Column(String)
     sex = Column(String)
 
-    studies = relationship("StudyModel", back_populates="patient")
+    studies = relationship("StudyModel", back_populates="patient", cascade="all, delete-orphan", lazy="joined")
     hospital_id = Column(UUID(as_uuid=True), ForeignKey("hospital.id"))
-    hospital = relationship("HospitalModel", back_populates="patients")
+    hospital = relationship("HospitalModel", back_populates="patients", lazy="joined")
 
 class StudyModel(AbstractModel):
     __tablename__ = "study"
@@ -41,7 +41,7 @@ class StudyModel(AbstractModel):
 
     patient_id = Column(UUID(as_uuid=True), ForeignKey("patient.id"))
     patient = relationship("PatientModel", back_populates="studies")
-    images = relationship("ImageModel", back_populates="study")
+    images = relationship("ImageModel", back_populates="study", cascade="all, delete-orphan", lazy="joined")
 
 class ImageModel(AbstractModel):
     __tablename__ = "image"
@@ -50,7 +50,7 @@ class ImageModel(AbstractModel):
     data = Column(Text)
 
     study_id = Column(UUID(as_uuid=True), ForeignKey("study.id"))
-    study = relationship("StudyModel", back_populates="images")
+    study = relationship("StudyModel", back_populates="images", lazy="joined")
 
 class UrlModel(Base):
     __tablename__ = "url"

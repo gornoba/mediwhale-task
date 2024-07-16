@@ -3,16 +3,12 @@ import base64
 import io
 import json
 from tempfile import NamedTemporaryFile
-from fastapi.responses import FileResponse, JSONResponse
 import pydicom
 import matplotlib.pyplot as plt
-from fastapi import HTTPException, UploadFile
-from src import repository
+from fastapi import UploadFile
 from sqlalchemy.orm import Session
-
-async def upsertUrl(url: str, db: Session):
-    result = await repository.upsertUrl(db, url=url)
-    return result
+from src.apps.file import file_repository
+from src.apps.basic import basic_repository
 
 async def uploadfile(file: UploadFile, db: Session):
     contents = await file.read()
@@ -32,7 +28,7 @@ async def uploadfile(file: UploadFile, db: Session):
 
         # 이미지를 Base64로 인코딩
         data = base64.b64encode(buf.read()).decode('utf-8')
-        ai_url = await repository.getUrl(db)
+        ai_url = await basic_repository.getUrl(db)
         aiscore = send_base64_image(data, ai_url)
         
     patientID = ds.PatientID
@@ -43,7 +39,9 @@ async def uploadfile(file: UploadFile, db: Session):
     laterality = ds.Laterality
     findName = file.filename
 
-    await repository.insertData(db, patientID, birthDate, sex, examDate, laterality, findName, aiscore, data)
+    result = await file_repository.insertData(db, patientID, birthDate, sex, examDate, laterality, findName, aiscore, data)
+
+    return result
 
     
 def send_base64_image(base64_image: str, target_url: str):

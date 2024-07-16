@@ -10,6 +10,8 @@ class Settings(BaseSettings):
     SQLALCHEMY_DATABASE_URL: str = Field(..., env="SQLALCHEMY_DATABASE_URL")
     SWAGGER_USERNAME: str = Field(..., env="SWAGGER_USERNAME")
     SWAGGER_PASSWORD: str = Field(..., env="SWAGGER_PASSWORD")
+    SECRET_KEY: str = Field(..., env="SECRET_KEY")
+    ALGORITHM: str = Field(..., env="ALGORITHM")
 
     class Config:
         current_dir = os.path.dirname(os.path.abspath(__file__))

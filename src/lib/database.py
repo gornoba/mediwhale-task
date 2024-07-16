@@ -1,6 +1,6 @@
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from src.core.joi import settings
+from src.lib.joi import settings
 from sqlalchemy import text
 from tenacity import retry, stop_after_delay, wait_fixed
 

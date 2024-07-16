@@ -1,7 +1,7 @@
 import secrets
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from src.core.joi import settings
+from src.lib.joi import settings
 
 security = HTTPBasic()
 

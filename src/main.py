@@ -5,15 +5,15 @@ from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.security import HTTPBasicCredentials
-from src.core.database import check_db_connection
-from src.core.exception import generic_exception_handler, http_exception_handler, validation_exception_handler
-from src.core.interceptor import SuccessInterceptor
-from src.core.joi import settings
-from src.core.logger import setup_logging
-from src.core.swaager_auth import verify_credentials
-from src.model import Base
-from src.module import router as items_router
-from src.core.database import engine
+from src.lib.database import check_db_connection
+from src.lib.exception import generic_exception_handler, http_exception_handler, validation_exception_handler
+from src.lib.interceptor import SuccessInterceptor
+from src.lib.joi import settings
+from src.lib.logger import setup_logging
+from src.lib.swaager_auth import verify_credentials
+from src.models.model import Base
+from src.apps.module import router as items_router
+from src.lib.database import engine
 from fastapi.openapi.docs import get_swagger_ui_html, get_redoc_html
 from fastapi.openapi.utils import get_openapi
 import uvicorn
@@ -21,7 +21,8 @@ import uvicorn
 setup_logging()
 app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None)
 
-## interceptor 등록23423
+
+## interceptor 등록
 app.add_middleware(SuccessInterceptor)
 
 # # 예외 핸들러 등록
